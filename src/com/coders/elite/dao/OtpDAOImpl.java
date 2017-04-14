@@ -61,7 +61,7 @@ public void deleteExpiredOtp()
 @SuppressWarnings("unchecked")
 public String getValidOtp(String mobile){
 	Session session = this.sessionFactory.getCurrentSession();
-	List<String> list= (List<String>)session.createSQLQuery("select otp from Otp where timestamp > (select DATE_SUB( CURRENT_TIME(), INTERVAL 10 MINUTE) from Dual)").list();
+	List<String> list= (List<String>)session.createSQLQuery("select otp from Otp where timestamp > (select DATE_SUB( CURRENT_TIME(), INTERVAL 10 MINUTE) from Dual) AND mobile=:mobile").setParameter("mobile", mobile).list();
 	
 	if(list.size() > 0){
 		return list.get(0);
