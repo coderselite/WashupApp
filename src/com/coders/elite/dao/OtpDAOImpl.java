@@ -69,6 +69,18 @@ public String getValidOtp(String mobile){
 	return null;
 	
 }
+
+@SuppressWarnings("unchecked")
+@Override
+public Boolean verifyUniqueOtp(String otp) {
+	Session session = this.sessionFactory.getCurrentSession();
+	List<Otp> list = (List<Otp>)session.createQuery("from Otp where otp = :otp").setParameter("otp", otp).list();
+	
+	if(list.size() > 0)
+	return false;
+	
+	return true;
+}
  
  } 
 

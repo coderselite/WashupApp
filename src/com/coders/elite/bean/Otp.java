@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
  
 /*
- * This is our model class and it corresponds to Country table in database
+ * This is our model class and it corresponds to Otp table in database
  */
 @Entity
 @Table(name="OTP") @Proxy(lazy = false)

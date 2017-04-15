@@ -19,5 +19,7 @@ public Otp getOtp(String mobile);
  
  public String getValidOtp(String mobile);
  
+ public Boolean verifyUniqueOtp(String otp);
+ 
  } 
 

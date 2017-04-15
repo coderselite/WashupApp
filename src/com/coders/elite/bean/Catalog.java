@@ -9,7 +9,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-
+/*
+ * This is our model class and it corresponds to Catalog table in database
+ */
 @Entity
 @Table(name="CATALOG") @Proxy (lazy = false)
 public class Catalog {

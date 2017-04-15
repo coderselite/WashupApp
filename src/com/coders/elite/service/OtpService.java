@@ -16,4 +16,6 @@ public interface OtpService {
  public void deleteExpiredOtp();
  
  public Boolean validateOtp(Otp otp);
+ 
+ public Boolean resendOtp(String mobile);
 }

@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
 	
 	private Users user;
 	private String referralCode;
+	private String otp;
 	 
 	 @Transactional
 	 public List<Users> getAllUsers() {
@@ -101,9 +102,14 @@ public class UserServiceImpl implements UserService {
 		 return referralCode;
 	 }
 	 
+	 /*
+	  * @see com.coders.elite.service.UserService#generateOtp()
+	  * Method to generate 4 digit Otp.
+	  */
 	 @Transactional
 	 public String generateOtp(){
 		 List<Integer> numbers = new ArrayList<>();
+		 
 		    for(int i = 0; i < 10; i++){
 		        numbers.add(i);
 		    }
@@ -115,9 +121,20 @@ public class UserServiceImpl implements UserService {
 		        otp += numbers.get(i).toString();
 		    }
 	        System.out.println("Otp: " +otp);
-		    return otp;
+            return otp;	       
 	 }
 	
+	 /*
+	  * Method to verify the uniqueness of otp from database and return valid Otp.
+	  */
+	 @Transactional
+	 public String getValidOtp(){
+		 do {
+			 this.otp = this.generateOtp();
+		 } while(otpDao.verifyUniqueOtp(otp) != true);
+			 
+		 return this.otp;
+	 }
 	 
 	 /*
 	  * Method to send Otp to users mobile.
@@ -146,7 +163,7 @@ public class UserServiceImpl implements UserService {
 	  */
 	 @Transactional
 	 public String validateUser(String mobile){
-		 String otp = this.generateOtp();
+		 String otp = this.getValidOtp();
 //		 this.sendOtp(otp, mobile);
 	   Users user = this.getUser(mobile);
 			 if (user != null)

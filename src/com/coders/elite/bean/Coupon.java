@@ -9,6 +9,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+/*
+ * This is our model class and it corresponds to Coupon table in database
+ */
 @Entity
 @Table(name="COUPON") @Proxy(lazy = false)
 public class Coupon {

@@ -19,7 +19,7 @@ import org.hibernate.annotations.Proxy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
  
 /*
- * This is our model class and it corresponds to Country table in database
+ * This is our model class and it corresponds to Users table in database
  */
 @Entity
 @Table(name="USERS") @Proxy(lazy = false)

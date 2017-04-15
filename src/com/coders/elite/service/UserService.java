@@ -14,5 +14,7 @@ public interface UserService {
 	public String validateUser(String mobile);
 	public String generateReferralCode();
 	public String verifyReferralCode();
+	public String getValidOtp();
+	public void sendOtp(String otp, String mobile);
 }
 

@@ -26,7 +26,7 @@ public class AddressServiceImpl implements AddressService{
 	/*
 	 *
 	 * @see com.coders.elite.service.AddressService#getAllAddresses(int)
-	 * Returns all the addresses for the requested user.
+	 * Returns all the addresses for the requested user in the AddressModel format.
 	 */
 	@Override
 	@Transactional

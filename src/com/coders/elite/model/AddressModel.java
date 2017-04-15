@@ -5,6 +5,9 @@ import javax.persistence.Id;
 
 public class AddressModel {
 
+	/*
+	 * This class maps to the request response object for Address.
+	 */
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private int address_id;

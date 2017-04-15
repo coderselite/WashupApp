@@ -13,6 +13,8 @@ public class OtpServiceImpl implements OtpService {
  @Autowired
  OtpDAO otpDao;
  
+@Autowired
+UserService userService;
 
  @Transactional
  public Otp getOtp(String mobile) {
@@ -53,5 +55,16 @@ public class OtpServiceImpl implements OtpService {
 		 return true;
 	 
 	 return false;
+ }
+ 
+ @Transactional
+ public Boolean resendOtp(String mobile) {
+	 String otp = userService.getValidOtp();
+	// userService.sendOtp(otp, mobile);
+	 Otp oldOtp = otpDao.getOtp(mobile);
+		 int otpId = oldOtp.getId();
+		 Otp updatedOtp = new Otp(otpId, otp, mobile);
+		 otpDao.updateOtp(updatedOtp);
+		 return true;
  }
 }
