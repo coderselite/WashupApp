@@ -2,13 +2,12 @@ package com.coders.elite.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
  
 /*
  * This is our model class and it corresponds to Country table in database
@@ -30,9 +31,9 @@ public class Users implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 @Id
- @Column(name="userId")
+ @Column(name="user_id")
  @GeneratedValue(strategy=GenerationType.IDENTITY)
- private Integer userId;
+ private Integer user_id;
  
  @Column(name="firstName")
  private String firstName; 
@@ -46,7 +47,8 @@ public class Users implements Serializable{
  @Column(name="referralCode")
  private String referralCode;
  
- @OneToMany (cascade=CascadeType.ALL, mappedBy="user")
+ @JsonIgnore
+ @OneToMany (cascade=CascadeType.ALL, mappedBy="user", fetch = FetchType.EAGER)
  private List<Address> addresses = new ArrayList<Address>(0);
  
  public Users() {
@@ -55,7 +57,7 @@ public class Users implements Serializable{
  
  public Users(int i, String firstName, String lastName, String mobile, String referralCode ) {
   super();
-  this.userId = i;
+  this.user_id = i;
   this.firstName = firstName;
   this.lastName=lastName;
   this.mobile=mobile;
@@ -63,11 +65,11 @@ public class Users implements Serializable{
  }
  
  public int getId() {
-  return userId;
+  return user_id;
  }
  
  public void setId(int id) {
-  this.userId = id;
+  this.user_id = id;
  }
  
  public String getFirstName() {

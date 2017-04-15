@@ -1,45 +1,31 @@
-package com.coders.elite.bean;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
+package com.coders.elite.model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import org.hibernate.annotations.Proxy;
-
-@Entity
-@Table (name="ADDRESS") @Proxy(lazy=false)
-public class Address {
+public class AddressModel {
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	@Column(name="address_id")
 	private int address_id;
 	
-	@Column(name="address")
 	private String address;
 	
-	@Column(name="address_type")
 	private String address_type;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn (name="user_id")
-	private Users user;
 	
-	public Address() {
+	private int user_id;
+
+	
+	public AddressModel() {
 		super();
 	}
 
-	public Address(int address_id, String address, String address_type) {
+	public AddressModel(int address_id, String address, String address_type, int user_id) {
 		super();
 		this.address_id = address_id;
 		this.address = address;
 		this.address_type = address_type;
+		this.user_id = user_id;
 	}
 
 	public int getAddress_id() {
@@ -66,13 +52,12 @@ public class Address {
 		this.address_type = address_type;
 	}
 
-	public Users getUser() {
-		return user;
+	public int getUser_id() {
+		return user_id;
 	}
 
-	public void setUser(Users user) {
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 		
-		this.user = user;
-	}
-
 }

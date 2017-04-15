@@ -10,6 +10,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
 		 return userDao.getAllUsers();
 	 }
 	 
-	 @Transactional
+	 @Transactional(propagation=Propagation.REQUIRED)
 	 public Users getUser(Integer id) {
 		 return userDao.getUser(id);
 	 }
@@ -171,6 +172,6 @@ public class UserServiceImpl implements UserService {
 				 otpDao.addOtp(newOtp);
 				 return "New User";
 			 }
-	 }	 
+	 }
 	 
 }

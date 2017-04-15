@@ -2,8 +2,6 @@ package com.coders.elite.dao;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +21,32 @@ public class AddressDAOImpl implements AddressDAO {
 	 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public List<Address> getAllAddresses(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("from Address A where A.user.userId=:userId").setParameter("userId", userId).list();
+		return session.createQuery("from Address A where A.user.user_id=:userId").setParameter("userId", userId).list();
 	}
 
 	@Override
-	@Transactional
 	public void addAddress(Address address) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.persist(address);
 		
 	}
 
 	@Override
-	@Transactional
 	public void updateAddress(Address address) {
-		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+	    session.update(address);
 	}
 
 	@Override
-	@Transactional
 	public void deleteAddress(int address_id) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Address address = (Address) session.load(Address.class, new Integer(address_id));
+		
+		if(address != null){
+			session.delete(address);
+		}
 		
 	}
 

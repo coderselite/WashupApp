@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2017 at 04:05 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Apr 15, 2017 at 06:14 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,11 +27,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `address` (
-  `addess_id` int(10) NOT NULL,
+  `address_id` int(10) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `type` varchar(10) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `address_type` varchar(10) NOT NULL,
+  `user_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`address_id`, `address`, `address_type`, `user_id`) VALUES
+(2, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 7),
+(3, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 7),
+(4, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 7);
 
 -- --------------------------------------------------------
 
@@ -40,9 +49,10 @@ CREATE TABLE `address` (
 --
 
 CREATE TABLE `catalog` (
-  `catalog_id` int(10) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `rate` varchar(30) NOT NULL
+  `catalog_id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `rate` int(11) NOT NULL,
+  `category` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -52,18 +62,37 @@ CREATE TABLE `catalog` (
 --
 
 CREATE TABLE `coupon` (
-  `coupon_id` int(10) NOT NULL,
-  `coupon_code` varchar(6) NOT NULL,
-  `details` varchar(100) NOT NULL,
-  `expiry_date` date NOT NULL,
-  `coupon_value` int(10) NOT NULL
+  `coupon_id` int(11) NOT NULL,
+  `coupon_code` varchar(10) NOT NULL DEFAULT 'NA',
+  `details` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Table structure for table `otp`
 --
+
+CREATE TABLE `otp` (
+  `otpId` int(8) NOT NULL,
+  `otp` varchar(4) NOT NULL,
+  `mobile` varchar(10) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `firstName` varchar(30) DEFAULT NULL,
+  `lastName` varchar(30) DEFAULT NULL,
+  `mobile` varchar(15) DEFAULT NULL,
+  `referralCode` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `orders` (
   `order_id` int(10) NOT NULL,
@@ -78,48 +107,6 @@ CREATE TABLE `orders` (
   `order_status` varchar(10) NOT NULL DEFAULT 'SUBMITTED'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `otp`
---
-
-CREATE TABLE `otp` (
-  `otpId` int(6) NOT NULL,
-  `otp` varchar(10) NOT NULL,
-  `mobile` varchar(15) NOT NULL,
-  `timeStamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `userId` bigint(6) NOT NULL,
-  `firstName` varchar(30) NOT NULL,
-  `lastName` varchar(30) NOT NULL,
-  `mobile` varchar(15) NOT NULL,
-  `referralCode` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`userId`, `firstName`, `lastName`, `mobile`, `referralCode`) VALUES
-(1, 'vijay', 'kumbhakarna', '9921409927', ''),
-(3, 'lakshmi', 'Pisharody', '8796536036', ''),
-(4, 'Shweta', 'Swami', '7030513344', ''),
-(5, 'Parag', 'Chavan', '7588945147', ''),
-(6, 'Amit', 'Dahiya', '7045302927', 'IUGLYn5F'),
-(7, 'hrusikesh', 'jawale', '9921409928', 'nx53lmuw'),
-(8, 'tushar', 'updhyay', '9921409928', 'imPN3FGs'),
-(9, 'himanshu', 'unadkat', '921409930', 'ehc5pWBB'),
-(10, 'Akshay', 'Kotasthane', '9921409931', 'CLS3A02v'),
-(11, 'Rewati', 'Puranikmath', '9898989898', '3b7mXLLF');
 
 --
 -- Indexes for dumped tables
@@ -129,13 +116,15 @@ INSERT INTO `users` (`userId`, `firstName`, `lastName`, `mobile`, `referralCode`
 -- Indexes for table `address`
 --
 ALTER TABLE `address`
-  ADD PRIMARY KEY (`addess_id`);
+  ADD PRIMARY KEY (`address_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `catalog`
 --
 ALTER TABLE `catalog`
-  ADD PRIMARY KEY (`catalog_id`);
+  ADD PRIMARY KEY (`catalog_id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `coupon`
@@ -144,22 +133,19 @@ ALTER TABLE `coupon`
   ADD PRIMARY KEY (`coupon_id`);
 
 --
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`);
-
---
 -- Indexes for table `otp`
 --
 ALTER TABLE `otp`
-  ADD PRIMARY KEY (`otpId`);
+  ADD PRIMARY KEY (`otpId`),
+  ADD UNIQUE KEY `mobile` (`mobile`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userId`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `referralCode` (`referralCode`),
+  ADD UNIQUE KEY `mobile` (`mobile`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -169,7 +155,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `addess_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `address_id` int(10) NOT NULL AUTO_INCREMENT;;
 --
 -- AUTO_INCREMENT for table `catalog`
 --
@@ -181,20 +167,29 @@ ALTER TABLE `catalog`
 ALTER TABLE `coupon`
   MODIFY `coupon_id` int(10) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `otp`
+--
+ALTER TABLE `otp`
+  MODIFY `otpId` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `otp`
+-- Constraints for table `address`
 --
-ALTER TABLE `otp`
-  MODIFY `otpId` int(6) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `userId` bigint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `address`
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

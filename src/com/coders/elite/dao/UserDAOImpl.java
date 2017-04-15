@@ -2,11 +2,12 @@ package com.coders.elite.dao;
 
 import java.util.List;
 
-import com.coders.elite.bean.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.coders.elite.bean.Users;
  
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -70,4 +71,5 @@ public Users verifyReferralCode( String referralCode ){
 	 }
 	 return null;
  }
+
 }
