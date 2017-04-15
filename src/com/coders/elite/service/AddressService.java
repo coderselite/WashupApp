@@ -7,7 +7,7 @@ import com.coders.elite.model.AddressModel;
 
 public interface AddressService {
 
-	public List <Address> getAllAddresses(int userId);
+	public List <AddressModel> getAllAddresses(int userId);
 	
 	public void addAddress(AddressModel address);
 	

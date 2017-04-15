@@ -19,7 +19,7 @@ public class AddressController {
 	AddressService addressService;
 	
 @RequestMapping(value = "/getAddress/userid/{userId}", method = RequestMethod.GET, headers = "Accept=application/json")
-public List<Address> getAddressById(@PathVariable Integer userId){
+public List<AddressModel> getAddressById(@PathVariable Integer userId){
 	return addressService.getAllAddresses(userId);
 }	
 	 @RequestMapping(value = "/addAddress", method = RequestMethod.POST, headers = "Accept=application/json")
