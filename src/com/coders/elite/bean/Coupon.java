@@ -1,13 +1,21 @@
 package com.coders.elite.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * This is our model class and it corresponds to Coupon table in database
@@ -26,7 +34,11 @@ public class Coupon {
 	
 	@Column(name="details")
 	private String details;
-
+	
+	 @JsonIgnore
+	 @OneToMany (cascade=CascadeType.ALL, mappedBy="coupon", fetch = FetchType.EAGER)
+	private List <Orders> order = new ArrayList<Orders>(0);
+	 
 	public Coupon() {
 		super();
 	}
@@ -60,6 +72,14 @@ public class Coupon {
 
 	public void setDetails(String details) {
 		this.details = details;
-	}	
+	}
 
+	public List<Orders> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Orders> order) {
+		this.order = order;
+	}
+	
 }

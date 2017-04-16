@@ -43,4 +43,9 @@ public class CouponServiceImpl implements CouponService{
 		
 	}
 
+	@Override
+	public Coupon getCoupon(int coupon_id) {
+     return couponDao.getCoupon(coupon_id);
+	}
+
 }

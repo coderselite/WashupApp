@@ -8,6 +8,8 @@ public interface CouponDAO {
 
 	public List<Coupon> getAllCoupons();
 	 
+	public Coupon getCoupon(int coupon_id);
+	
 	 public void addCoupon(Coupon coupon);
 	 
 	 public void updateCoupon(Coupon coupon);

@@ -32,16 +32,22 @@ public class CouponDAOImpl implements CouponDAO{
 		  session.persist(coupon);
 		 }
 		 
-		 public void updateCoupon(Coupon coupon) {
+	public void updateCoupon(Coupon coupon) {
 		  Session session = this.sessionFactory.getCurrentSession();
 		  session.update(coupon);
-		 }
+	}
 		 
-		 public void deleteCoupon(int id) {
+	public void deleteCoupon(int id) {
 		  Session session = this.sessionFactory.getCurrentSession();
 		  Coupon c = (Coupon) session.load(Coupon.class, new Integer(id));
 		  if (null != c) {
 		   session.delete(c);
-		  }
-		 }
+	 }
+	}
+		  
+    public Coupon getCoupon(int coupon_id) {
+		  Session session = this.sessionFactory.getCurrentSession();
+		  return (Coupon) session.load(Coupon.class, new Integer(coupon_id));
+    }
+		 
 }

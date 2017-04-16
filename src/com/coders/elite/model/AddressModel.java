@@ -1,17 +1,10 @@
 package com.coders.elite.model;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 public class AddressModel {
 
 	/*
 	 * This class maps to the request response object for Address.
-	 */
-	@Id
-	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	private int address_id;
-	
+	 */	
 	private String address;
 	
 	private String address_type;
@@ -23,20 +16,11 @@ public class AddressModel {
 		super();
 	}
 
-	public AddressModel(int address_id, String address, String address_type, int user_id) {
+	public AddressModel(String address, String address_type, int user_id) {
 		super();
-		this.address_id = address_id;
 		this.address = address;
 		this.address_type = address_type;
 		this.user_id = user_id;
-	}
-
-	public int getAddress_id() {
-		return address_id;
-	}
-
-	public void setAddress_id(int address_id) {
-		this.address_id = address_id;
 	}
 
 	public String getAddress() {

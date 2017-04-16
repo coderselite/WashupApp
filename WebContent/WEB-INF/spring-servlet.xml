@@ -32,7 +32,7 @@
 				<beans:value>com.coders.elite.bean.Address</beans:value>
 				<beans:value>com.coders.elite.bean.Otp</beans:value>
 				<beans:value>com.coders.elite.bean.Catalog</beans:value>
-				<beans:value>com.coders.elite.bean.Order</beans:value>		
+				<beans:value>com.coders.elite.bean.Orders</beans:value>		
 				<beans:value>com.coders.elite.bean.Coupon</beans:value>	
 			</beans:list>
 		</beans:property>

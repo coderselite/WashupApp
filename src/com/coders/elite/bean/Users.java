@@ -25,14 +25,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="USERS") @Proxy(lazy = false)
 public class Users implements Serializable{
  
- /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-@Id
- @Column(name="user_id")
+ @Id
  @GeneratedValue(strategy=GenerationType.IDENTITY)
+ @Column(name="user_id")
  private Integer user_id;
  
  @Column(name="firstName")
@@ -46,6 +43,11 @@ public class Users implements Serializable{
   
  @Column(name="referralCode")
  private String referralCode;
+ 
+ @JsonIgnore
+ @OneToMany(cascade=CascadeType.ALL, mappedBy="user1", fetch = FetchType.EAGER)
+ private List<Orders> orders = new ArrayList<Orders>(0);
+ 
  
  @JsonIgnore
  @OneToMany (cascade=CascadeType.ALL, mappedBy="user", fetch = FetchType.EAGER)
@@ -110,6 +112,14 @@ public List<Address> getAddresses(){
 
 public void setAddresses(List<Address> addresses){
 this.addresses = addresses;
+}
+
+public List<Orders> getOrders() {
+	return orders;
+}
+
+public void setOrders(List<Orders> orders) {
+	this.orders = orders;
 }
 }
  

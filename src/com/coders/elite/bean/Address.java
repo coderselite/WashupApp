@@ -20,7 +20,7 @@ import org.hibernate.annotations.Proxy;
 public class Address {
 
 	@Id
-	@GeneratedValue (strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="address_id")
 	private int address_id;
 	
