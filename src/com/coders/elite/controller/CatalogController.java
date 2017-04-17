@@ -20,22 +20,34 @@ public class CatalogController {
 	@Autowired
 	CatalogService catalogService;
 	
+	/*
+	 * Service to getAllCatalogs from the catalog table.
+	 */
 	@RequestMapping(value = "/getAllCatalogs", method = RequestMethod.GET, headers= "Accept=application/json")
 	public List <Catalog> getCatalogs(){
 		return catalogService.getAllCatalogs();
 	}
 	
+	/*
+	 * Service to add a catalog to the table.
+	 */
 	 @RequestMapping(value = "/addCatalog", method = RequestMethod.POST, headers = "Accept=application/json")
 	 public void addCatalog(@RequestBody Catalog cat) { 
 		 catalogService.addCatalog(cat);
 	  
 	 }
 	 
+	 /*
+	  * Service to update an exisiting catalog in the table.
+	  */
 	 @RequestMapping(value = "/updateCatalog", method = RequestMethod.PUT, headers = "Accept=application/json")
 	 public void updateCatalog(@RequestBody Catalog cat) {
 		 catalogService.updateCatalog(cat);
 	 }
 	 
+	 /*
+	  * Service to delete a catalog specified by the catalog_id.
+	  */
 	 @RequestMapping(value = "/deleteCatalog/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	 public void deleteCatalog(@PathVariable("id") int id) {
 		 catalogService.deleteCatalog(id);  

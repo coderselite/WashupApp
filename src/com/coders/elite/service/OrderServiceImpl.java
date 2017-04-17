@@ -29,6 +29,10 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	CouponDAO couponDao;
 	
+	/*
+	 * @see com.coders.elite.service.OrderService#getOrders(int)
+	 * Returns all the orders for the requested user in the OrderModel format.
+	 */
 	@Override
 	@Transactional
 	public List<OrderModel> getOrders(int userid) {
@@ -69,6 +73,11 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	/*
+	 * @see com.coders.elite.service.OrderService#addOrder(com.coders.elite.model.OrderModel)
+	 * This method takes the OrderModel object from controller and creates a Orders object
+	 * which is then passed on to persist to the database.
+	 */
 	@Override
 	@Transactional
 	public void addOrder(OrderModel order) {

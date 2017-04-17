@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
 	 
 	 /*
 	  * @see com.coders.elite.service.UserService#generateOtp()
-	  * Method to generate 4 digit Otp.
+	  * Method to generate 4 digit Otp. called from "getValidOtp" method.
 	  */
 	 @Transactional
 	 public String generateOtp(){
@@ -126,6 +126,7 @@ public class UserServiceImpl implements UserService {
 	
 	 /*
 	  * Method to verify the uniqueness of otp from database and return valid Otp.
+	  * Called from "validateUser" method.
 	  */
 	 @Transactional
 	 public String getValidOtp(){
@@ -137,7 +138,7 @@ public class UserServiceImpl implements UserService {
 	 }
 	 
 	 /*
-	  * Method to send Otp to users mobile.
+	  * Method to send Otp to users mobile. Called from "validateUser" method.
 	  */
 	@SuppressWarnings("deprecation")
 	@Transactional
@@ -160,6 +161,8 @@ public class UserServiceImpl implements UserService {
 	 
 	 /*
 	  * Method to verify mobile number for new User/Login for existing user.
+	  * Generates validOtp, sends to the requested mobile number.
+	  * Depending on existing user/new user performs update/add operation in otp table.
 	  */
 	 @Transactional
 	 public String validateUser(String mobile){

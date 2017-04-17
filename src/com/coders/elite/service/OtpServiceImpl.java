@@ -57,6 +57,11 @@ UserService userService;
 	 return false;
  }
  
+ /*
+  * @see com.coders.elite.service.OtpService#resendOtp(java.lang.String)
+  * Method to resendOtp. Generates a new validOtp and updates it in DB
+  * and sends to the reuested mobile number.
+  */
  @Transactional
  public Boolean resendOtp(String mobile) {
 	 String otp = userService.getValidOtp();

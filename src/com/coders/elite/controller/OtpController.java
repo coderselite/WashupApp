@@ -43,6 +43,9 @@ public class OtpController {
   return otpService.validateOtp(otp);
  }
  
+  /*
+   * Service used to resend otp.
+   */
   @RequestMapping(value = "/resendOtp/mobile/{mobile}", method = RequestMethod.GET, headers = "Accept=application/json")
   public Boolean resendOtpToMobile(@PathVariable String mobile) {
    return otpService.resendOtp(mobile);
