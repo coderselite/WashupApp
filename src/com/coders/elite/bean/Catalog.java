@@ -1,10 +1,14 @@
 package com.coders.elite.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -30,8 +34,9 @@ public class Catalog {
 	@Column(name="category")
 	private String category;
 	
-	
-
+	@ManyToMany (mappedBy = "catalog")
+	private List <Orders> orders = new ArrayList<Orders>(0);
+ 
 	public Catalog() {
 		super();
 	}
@@ -77,5 +82,16 @@ public class Catalog {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
+
+	public List<Orders> getOrders() {
+		return orders;
+	}
+
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
+	
 		
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coders.elite.bean.Catalog;
 import com.coders.elite.service.CatalogService;
 
-@CrossOrigin(origins="http://localhost:8100", maxAge=4800, allowCredentials="False") 
+//@CrossOrigin(origins="http://localhost:8100", maxAge=4800, allowCredentials="False") 
 @RestController
 public class CatalogController {
 
@@ -52,4 +52,13 @@ public class CatalogController {
 	 public void deleteCatalog(@PathVariable("id") int id) {
 		 catalogService.deleteCatalog(id);  
 	 }
+	 
+	/*
+	 * Service to getCatalogs for a specific catalog_id.
+	 */
+	 @RequestMapping(value = "/getCatalog/{id}", method = RequestMethod.GET, headers= "Accept=application/json")
+	public Catalog getCatalog(int id){
+		 return catalogService.getCatalog(id);
+	}
+		
 }

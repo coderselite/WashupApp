@@ -35,10 +35,7 @@ public class AddressServiceImpl implements AddressService{
 		List<Address> list = (List <Address>) addressDao.getAllAddresses(userId);
 		if (list.size() > 0) {
 			for(int i=0 ; i <list.size() ;i++) {
-				AddressModel addModel = new AddressModel();
-				addModel.setAddress(list.get(i).getAddress());
-				addModel.setAddress_type(list.get(i).getAddress_type());
-				addModel.setUser_id(list.get(i).getUser().getId());
+				AddressModel addModel = new AddressModel(list.get(i).getAddress(),list.get(i).getAddress_type(),list.get(i).getUser().getId());
 				responseList.add(addModel);
 			}
 		}
@@ -57,9 +54,7 @@ public class AddressServiceImpl implements AddressService{
 	public void addAddress(AddressModel address) {
 		int userid = address.getUser_id();
 		Users u = userDao.getUser(userid);
-		Address addressNew = new Address();
-		addressNew.setAddress(address.getAddress());
-		addressNew.setAddress_type(address.getAddress_type());
+		Address addressNew = new Address(address.getAddress(),address.getAddress_type());
 		addressNew.setUser(u);
 		addressDao.addAddress(addressNew);
 		

@@ -45,7 +45,7 @@ public class Users implements Serializable{
  private String referralCode;
  
  @JsonIgnore
- @OneToMany(cascade=CascadeType.ALL, mappedBy="user1", fetch = FetchType.EAGER)
+ @OneToMany(cascade=CascadeType.ALL, mappedBy="user", fetch = FetchType.EAGER)
  private List<Orders> orders = new ArrayList<Orders>(0);
  
  

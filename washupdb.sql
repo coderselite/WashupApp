@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 -- Database: `washupdb`
 --
 
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(30) NOT NULL,
+  `lastName` varchar(30) NOT NULL,
+  `mobile` varchar(15) NOT NULL UNIQUE,
+  `referralCode` varchar(8) NOT NULL UNIQUE,
+  PRIMARY KEY (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- --------------------------------------------------------
 
 --
@@ -27,20 +39,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `address` (
-  `address_id` int(10) NOT NULL,
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `address` varchar(100) NOT NULL,
   `address_type` varchar(10) NOT NULL,
-  `user_id` int(10) NOT NULL
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (address_id),
+  FOREIGN KEY (user_id) REFERENCES users (user_id)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `address`
---
-
-INSERT INTO `address` (`address_id`, `address`, `address_type`, `user_id`) VALUES
-(2, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 7),
-(3, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 7),
-(4, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 7);
 
 -- --------------------------------------------------------
 
@@ -49,10 +56,11 @@ INSERT INTO `address` (`address_id`, `address`, `address_type`, `user_id`) VALUE
 --
 
 CREATE TABLE `catalog` (
-  `catalog_id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
+  `catalog_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL UNIQUE,
   `rate` int(11) NOT NULL,
-  `category` varchar(20) NOT NULL
+  `category` varchar(20) NOT NULL,
+  PRIMARY KEY (catalog_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -62,9 +70,10 @@ CREATE TABLE `catalog` (
 --
 
 CREATE TABLE `coupon` (
-  `coupon_id` int(11) NOT NULL,
+  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
   `coupon_code` varchar(10) NOT NULL DEFAULT 'NA',
-  `details` varchar(100) NOT NULL
+  `details` varchar(100) NOT NULL,
+  PRIMARY KEY (coupon_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -74,122 +83,44 @@ CREATE TABLE `coupon` (
 --
 
 CREATE TABLE `otp` (
-  `otpId` int(8) NOT NULL,
-  `otp` varchar(4) NOT NULL,
-  `mobile` varchar(10) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `otp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `otp` varchar(4) NOT NULL UNIQUE,
+  `mobile` varchar(10) NOT NULL UNIQUE,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (otp_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
-  `firstName` varchar(30) DEFAULT NULL,
-  `lastName` varchar(30) DEFAULT NULL,
-  `mobile` varchar(15) DEFAULT NULL,
-  `referralCode` varchar(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 CREATE TABLE `orders` (
-  `order_id` int(10) NOT NULL,
-  `user_id` int(10) NOT NULL,
-  `address_id` int(10) NOT NULL,
-  `coupon_id` int(10) NOT NULL,
-  `order_date` date NOT NULL,
-  `delivery_date` date NOT NULL,
-  `pickup_time` time NOT NULL,
-  `delivery_time` time NOT NULL,
+  `order_id` int(10) NOT NULL AUTO_INCREMENT,
   `order_type` varchar(10) NOT NULL,
-  `order_status` varchar(10) NOT NULL DEFAULT 'SUBMITTED'
+  `order_status` varchar(10) NOT NULL DEFAULT 'SUBMITTED',
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `pickup_date` date NOT NULL,
+  `pickup_time` varchar(10) NOT NULL,
+  `delivery_date` date NOT NULL,
+  `delivery_time` varchar(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `coupon_id` int(10) NOT NULL,
+   PRIMARY KEY (order_id),
+   FOREIGN KEY (user_id) REFERENCES users (user_id)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE,
+   FOREIGN KEY (coupon_id) REFERENCES coupon (coupon_id)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `address`
---
-ALTER TABLE `address`
-  ADD PRIMARY KEY (`address_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `catalog`
---
-ALTER TABLE `catalog`
-  ADD PRIMARY KEY (`catalog_id`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
--- Indexes for table `coupon`
---
-ALTER TABLE `coupon`
-  ADD PRIMARY KEY (`coupon_id`);
-
---
--- Indexes for table `otp`
---
-ALTER TABLE `otp`
-  ADD PRIMARY KEY (`otpId`),
-  ADD UNIQUE KEY `mobile` (`mobile`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `referralCode` (`referralCode`),
-  ADD UNIQUE KEY `mobile` (`mobile`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `address`
---
-ALTER TABLE `address`
-  MODIFY `address_id` int(10) NOT NULL AUTO_INCREMENT;;
---
--- AUTO_INCREMENT for table `catalog`
---
-ALTER TABLE `catalog`
-  MODIFY `catalog_id` int(10) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `coupon`
---
-ALTER TABLE `coupon`
-  MODIFY `coupon_id` int(10) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `otp`
---
-ALTER TABLE `otp`
-  MODIFY `otpId` int(10) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT;
---
--- Constraints for table `address`
---
-ALTER TABLE `address`
-  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE `orders_catalog` (
+  `orders_catalog_id` int(11) NOT NULL AUTO_INCREMENT,
+  `catalog_id` int(10) NOT NULL,
+  `order_id` int(10) NOT NULL,
+   PRIMARY KEY (`orders_catalog_id`),
+   FOREIGN KEY (catalog_id) REFERENCES catalog (catalog_id)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE,
+   FOREIGN KEY (order_id) REFERENCES orders (order_id)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;

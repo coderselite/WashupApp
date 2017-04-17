@@ -44,5 +44,11 @@ public class CatalogServiceImpl implements CatalogService{
 		catalogDao.deleteCatalog(id);
 		
 	}
+	
+	@Override
+	@Transactional
+	public Catalog getCatalog(int id){
+		return catalogDao.getCatalog(id);
+	}
 
 }

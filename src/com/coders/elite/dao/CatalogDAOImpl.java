@@ -53,5 +53,11 @@ public class CatalogDAOImpl implements CatalogDAO {
 
 	}
 	
+	@Override
+	public Catalog getCatalog(int id){
+		Session session = this.sessionFactory.getCurrentSession();
+		return (Catalog) session.load(Catalog.class, new Integer(id));
+	}
+	
 
 }

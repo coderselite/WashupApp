@@ -17,9 +17,9 @@ import org.hibernate.annotations.Proxy;
 public class Otp{
  
  @Id
- @Column(name="otpId")
+ @Column(name="otp_id")
  @GeneratedValue(strategy=GenerationType.IDENTITY)
- Integer otpId;
+ Integer otp_id;
  
  @Column(name="otp")
  String otp; 
@@ -39,17 +39,17 @@ public class Otp{
  
  public Otp(int i, String otp, String mobile) {
   super();
-  this.otpId = i;
+  this.otp_id = i;
   this.otp= otp;
   this.mobile = mobile;
  }
  
  public int getId() {
-  return otpId;
+  return otp_id;
  }
  
  public void setId(int id) {
-  this.otpId = id;
+  this.otp_id = id;
  }
  
  public String getOtp() {

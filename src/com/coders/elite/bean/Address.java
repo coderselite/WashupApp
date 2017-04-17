@@ -38,9 +38,8 @@ public class Address {
 		super();
 	}
 
-	public Address(int address_id, String address, String address_type) {
+	public Address(String address, String address_type) {
 		super();
-		this.address_id = address_id;
 		this.address = address;
 		this.address_type = address_type;
 	}

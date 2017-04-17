@@ -12,5 +12,7 @@ public interface CatalogDAO {
 	 public void updateCatalog(Catalog cat);
 	 
 	 public void deleteCatalog(int id);
+	 
+	 public Catalog getCatalog(int id);
 
 }

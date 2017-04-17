@@ -23,7 +23,7 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public List<Orders> getOrders(int userid) {
 		Session session = sessionFactory.getCurrentSession();
-		List <Orders> list = session.createQuery("from Orders O where O.user1.user_id = :userid").setParameter("userid", userid).list();
+		List <Orders> list = session.createQuery("from Orders O where O.user.user_id = :userid").setParameter("userid", userid).list();
 		return list;
 	}
 
