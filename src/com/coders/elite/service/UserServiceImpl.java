@@ -1,6 +1,7 @@
 package com.coders.elite.service;
 
 import java.security.SecureRandom;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -168,6 +169,7 @@ public class UserServiceImpl implements UserService {
 	 public String validateUser(String mobile){
 		 String otp = this.getValidOtp();
 //		 this.sendOtp(otp, mobile);
+		 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	   Users user = this.getUser(mobile);
 			 if (user != null)
 			 {
@@ -175,12 +177,12 @@ public class UserServiceImpl implements UserService {
 				 if(oldOtp != null)
 				 {
 					 int otpId = oldOtp.getId();
-					 Otp updatedOtp = new Otp(otpId, otp, mobile);
+					 Otp updatedOtp = new Otp(otpId, otp, mobile,timestamp);
 					 otpDao.updateOtp(updatedOtp); 
 				 }
 				 else
 				 {
-					 Otp newOtp = new Otp(otp, mobile);
+					 Otp newOtp = new Otp(otp, mobile,timestamp);
 					 otpDao.addOtp(newOtp); 
 				 }
 				 return "Registered User";
@@ -188,7 +190,7 @@ public class UserServiceImpl implements UserService {
 			 }
 			 else
 			 {
-				 Otp newOtp = new Otp(otp, mobile);
+				 Otp newOtp = new Otp(otp, mobile,timestamp);
 				 otpDao.addOtp(newOtp);
 				 return "New User";
 			 }

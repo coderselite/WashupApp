@@ -1,5 +1,7 @@
 package com.coders.elite.service;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,10 +67,11 @@ UserService userService;
  @Transactional
  public Boolean resendOtp(String mobile) {
 	 String otp = userService.getValidOtp();
+	 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	// userService.sendOtp(otp, mobile);
 	 Otp oldOtp = otpDao.getOtp(mobile);
 		 int otpId = oldOtp.getId();
-		 Otp updatedOtp = new Otp(otpId, otp, mobile);
+		 Otp updatedOtp = new Otp(otpId, otp, mobile,timestamp);
 		 otpDao.updateOtp(updatedOtp);
 		 return true;
  }

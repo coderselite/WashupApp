@@ -1,5 +1,7 @@
 package com.coders.elite.bean;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,23 +27,30 @@ public class Otp{
  String otp; 
  
  @Column(name="mobile")
- String mobile; 
+ String mobile;
+ 
+ @Column(name= "timestamp")
+ Timestamp timestamp;
  
  public Otp() {
   super();
  }
  
- public Otp(String otp, String mobile)
- {
-	  this.otp= otp;
-	  this.mobile = mobile; 
- }
- 
- public Otp(int i, String otp, String mobile) {
+ public Otp(String otp, String mobile, Timestamp timestamp) {
+	super();
+	this.otp = otp;
+	this.mobile = mobile;
+	this.timestamp = timestamp;
+}
+
+
+
+public Otp(int i, String otp, String mobile,Timestamp timestamp) {
   super();
   this.otp_id = i;
   this.otp= otp;
   this.mobile = mobile;
+  this.timestamp = timestamp;
  }
  
  public int getId() {
@@ -67,7 +76,13 @@ public class Otp{
 	 public void setMobile(String mobile) {
 	  this.mobile = mobile;
 	 }
- 
- 
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
 }
  

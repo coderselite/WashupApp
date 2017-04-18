@@ -116,6 +116,7 @@ CREATE TABLE `orders_catalog` (
   `orders_catalog_id` int(11) NOT NULL AUTO_INCREMENT,
   `catalog_id` int(10) NOT NULL,
   `order_id` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
    PRIMARY KEY (`orders_catalog_id`),
    FOREIGN KEY (catalog_id) REFERENCES catalog (catalog_id)
    ON DELETE CASCADE
@@ -124,3 +125,44 @@ CREATE TABLE `orders_catalog` (
    ON DELETE CASCADE
    ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `firstName`, `lastName`, `mobile`, `referralCode`) VALUES
+(1, 'Lakshmi', 'Pisharody', '8796536036', 'abhf4567'),
+(2, 'Manoj', 'Pisharody', '9975025574', 'S7ksNsj4'),
+(3, 'Vijay', 'Kumbhakarna', '87963736012', 'abhf4595'),
+(4, 'Shweta', 'Swami', '87963736082', 'abhf4598');
+
+--
+-- Dumping data for table `otp`
+--
+
+INSERT INTO `otp` (`otp_id`, `otp`, `mobile`, `timestamp`) VALUES
+(1, '5436', '8796536036', '2017-04-18 16:06:16');
+
+--
+-- Dumping data for table `coupon`
+--
+
+INSERT INTO `coupon` (`coupon_id`, `coupon_code`, `details`) VALUES
+(1, 'ABCD456', '2 wash free'),
+(2, 'XYZ8796A', '1 wash free');
+
+--
+-- Dumping data for table `catalog`
+--
+INSERT INTO `catalog` (`catalog_id`, `name`, `rate`, `category`) VALUES
+(1, 'Shirt', 10, 'Men'),
+(2, 'Pants', 20, 'Men'),
+(3, 'Sari' , 25, 'Women'),
+(4, 'Tops' , 15, 'Women');
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`address_id`, `address`, `address_type`, `user_id`) VALUES
+(1, 'Sayali APts. Flat no.1, Pendse colony, Vikasnagar, Dehuroad, Pune-412101', 'Permanent', 1);
