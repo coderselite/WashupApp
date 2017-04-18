@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 import com.coders.elite.bean.Catalog;
 import com.coders.elite.bean.Coupon;
 import com.coders.elite.bean.Orders;
+import com.coders.elite.bean.Orders_Catalog;
 import com.coders.elite.bean.Users;
 import com.coders.elite.dao.CatalogDAO;
 import com.coders.elite.dao.CouponDAO;
 import com.coders.elite.dao.OrderDAO;
+import com.coders.elite.dao.Orders_CatalogDAO;
 import com.coders.elite.dao.UserDAO;
 import com.coders.elite.model.CatalogModel;
 import com.coders.elite.model.OrderModel;
@@ -38,6 +40,9 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	CatalogDAO catalogDao;
 	
+	@Autowired
+	Orders_CatalogDAO orders_catalogDao;
+	
 	/*
 	 * @see com.coders.elite.service.OrderService#getOrders(int)
 	 * Returns all the orders for the requested user in the OrderModel format.
@@ -55,9 +60,18 @@ public class OrderServiceImpl implements OrderService {
 				String pickup_date = sdf.format(pdate);
 				String delivery_date = sdf.format(ddate);
 				Orders obj = list.get(i);
+				List<Orders_Catalog> OC_list = (List <Orders_Catalog>) orders_catalogDao.getOrders(obj.getOrder_id());
+				List<CatalogModel> catalogModel = new ArrayList<CatalogModel>(0);
+				if(OC_list.size() > 0){
+					for (int j=0; j<OC_list.size(); j++){
+						CatalogModel cat = new CatalogModel (OC_list.get(j).getCatalog().getCatalog_id(),OC_list.get(j).getQuantity());
+						catalogModel.add(cat);
+					}
+				}
 				OrderModel orderModel = new OrderModel(obj.getOrder_type(),obj.getOrder_status(),
 						pickup_date,obj.getPickup_time(),delivery_date, obj.getDelivery_time(),
 						obj.getUser().getId(),obj.getCoupon().getCoupon_id());
+				orderModel.setCatalogModelList(catalogModel);
 				responseList.add(orderModel);
 			}
 		}
@@ -110,15 +124,21 @@ public class OrderServiceImpl implements OrderService {
 		int coupon_id = order.getCoupon_id();
 		Users user = userDao.getUser(user_id);
 		Coupon coupon = couponDao.getCoupon(coupon_id);
-		List <Catalog> catalogList = new ArrayList<Catalog>(0);
+		orderNew.setUser(user);
+		orderNew.setCoupon(coupon);
+		
+		List <Orders_Catalog> orders_catalog_list = new ArrayList<Orders_Catalog>(0);
 		List <CatalogModel> catalogModel = order.getCatalogModelList();
 		for (int i=0; i<catalogModel.size();i++){
 			Catalog catalog = catalogDao.getCatalog(catalogModel.get(i).getCatalog_id());
-			catalogList.add(catalog);
+			Orders_Catalog oc= new Orders_Catalog();
+			oc.setCatalog(catalog);
+			oc.setOrder(orderNew);
+			oc.setQuantity(catalogModel.get(i).getQuantity());
+			orders_catalogDao.addOrders_Catalog(oc);
+			orders_catalog_list.add(oc);
 		}
-		orderNew.setUser(user);
-		orderNew.setCoupon(coupon);
-		orderNew.setCatalog(catalogList);
+		orderNew.setCatalog(orders_catalog_list);
 		orderDao.addOrder(orderNew);
 	}
 

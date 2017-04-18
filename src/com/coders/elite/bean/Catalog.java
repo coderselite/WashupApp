@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * This is our model class and it corresponds to Catalog table in database
@@ -34,8 +37,9 @@ public class Catalog {
 	@Column(name="category")
 	private String category;
 	
-	@ManyToMany (mappedBy = "catalog")
-	private List <Orders> orders = new ArrayList<Orders>(0);
+	@JsonIgnore
+	@ManyToMany (mappedBy = "catalog", fetch = FetchType.EAGER)
+	private List <Orders_Catalog> orders = new ArrayList<Orders_Catalog>(0);
  
 	public Catalog() {
 		super();
@@ -83,15 +87,12 @@ public class Catalog {
 		this.category = category;
 	}
 
-
-	public List<Orders> getOrders() {
+	public List<Orders_Catalog> getOrders() {
 		return orders;
 	}
 
-
-	public void setOrders(List<Orders> orders) {
+	public void setOrders(List<Orders_Catalog> orders) {
 		this.orders = orders;
 	}
-	
 		
 }

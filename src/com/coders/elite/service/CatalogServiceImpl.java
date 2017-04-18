@@ -2,10 +2,11 @@ package com.coders.elite.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.coders.elite.bean.Catalog;
 import com.coders.elite.dao.CatalogDAO;
@@ -18,7 +19,7 @@ public class CatalogServiceImpl implements CatalogService{
 	
 	
 	@Override
-	@Transactional
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Catalog> getAllCatalogs() {
 
 		return catalogDao.getAllCatalogs();

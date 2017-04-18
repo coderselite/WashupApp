@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table (name = "ORDERS") @Proxy(lazy=false)
 public class Orders {
@@ -57,12 +59,9 @@ public class Orders {
 	@JoinColumn(name="coupon_id")
 	private Coupon coupon;
 	
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "ORDERS_CATALOG",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "catalog_id"))
-	private List <Catalog> catalog = new ArrayList<Catalog>(0);
+	@JsonIgnore
+	@ManyToMany (mappedBy = "orders", fetch = FetchType.EAGER)
+	private List <Orders_Catalog> catalog = new ArrayList<Orders_Catalog>(0);
 	
 	public Orders() {
 		super();
@@ -150,14 +149,12 @@ public class Orders {
 		this.coupon = coupon;
 	}
 
-	public List<Catalog> getCatalog() {
+	public List<Orders_Catalog> getCatalog() {
 		return catalog;
 	}
 
-	public void setCatalog(List<Catalog> catalog) {
+	public void setCatalog(List<Orders_Catalog> catalog) {
 		this.catalog = catalog;
 	}
-	
-	
 	
 }
