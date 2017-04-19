@@ -3,6 +3,7 @@ package com.coders.elite.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,5 +26,15 @@ TimeslotService timeslotService;
 	 @RequestMapping(value = "/addTimeslot", method = RequestMethod.POST, headers = "Accept=application/json")
 	 public void addTimeslot(@RequestBody Timeslot timeslot) { 
 	  timeslotService.addTimeslot(timeslot);
+	 }
+	 
+	 @RequestMapping(value = "/updateTimeslot", method = RequestMethod.POST, headers = "Accept=application/json")
+	 public void updateTimeslot(@RequestBody Timeslot timeslot) { 
+	  timeslotService.updateTimeslot(timeslot);
+	 } 
+	 
+	 @RequestMapping(value = "/deleteTimeslot/{id}", method = RequestMethod.POST, headers = "Accept=application/json")
+	 public void deleteTimeslot(@PathVariable("id") int id) { 
+	  timeslotService.deleteTimeslot(id);
 	 }
 }

@@ -127,6 +127,16 @@ CREATE TABLE `orders_catalog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
+-- Table structure for table `timeslot`
+--
+
+CREATE TABLE `timeslot` (
+  `timeslot_id` int(11) NOT NULL AUTO_INCREMENT,
+  `timeslot` varchar(20) NOT NULL UNIQUE,
+  PRIMARY KEY (timeslot_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Dumping data for table `users`
 --
 
