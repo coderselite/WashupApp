@@ -35,7 +35,7 @@
 				<beans:value>com.coders.elite.bean.Orders</beans:value>		
 				<beans:value>com.coders.elite.bean.Coupon</beans:value>
 				<beans:value>com.coders.elite.bean.Orders_Catalog</beans:value>
-				<beans:value>com.coders.elite.bean.Timeslot</beans:value>
+				<beans:value>com.coders.elite.bean.Wallet</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

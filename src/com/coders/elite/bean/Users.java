@@ -12,8 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,7 +56,19 @@ public class Users implements Serializable{
  @OneToMany (cascade=CascadeType.ALL, mappedBy="user", fetch = FetchType.EAGER)
  private List<Address> addresses = new ArrayList<Address>(0);
  
- public Users() {
+ @OneToOne (cascade=CascadeType.ALL, mappedBy="user", fetch = FetchType.EAGER)
+ private Wallet wallet;
+ 
+ 
+ public Wallet getWallet() {
+	return wallet;
+}
+
+public void setWallet(Wallet wallet) {
+	this.wallet = wallet;
+}
+
+public Users() {
   super();
  }
  
