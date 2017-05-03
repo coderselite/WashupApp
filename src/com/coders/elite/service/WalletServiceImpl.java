@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import com.coders.elite.bean.Users;
 import com.coders.elite.bean.Wallet;
 import com.coders.elite.dao.UserDAO;
 import com.coders.elite.dao.UserDAOImpl;
 import com.coders.elite.dao.WalletDAOImpl;
 import com.coders.elite.model.WalletModel;
+=======
+import com.coders.elite.bean.Wallet;
+import com.coders.elite.dao.WalletDAOImpl;
+>>>>>>> f1ba42b4627a0af0e654ee3da474451fe39822cf
 
 @Service("WalletService")
 public class WalletServiceImpl implements WalletService{
@@ -19,9 +24,12 @@ public class WalletServiceImpl implements WalletService{
 	@Autowired
 	WalletDAOImpl walletDAO;
 	
+<<<<<<< HEAD
 	@Autowired
 	UserDAOImpl userDAO;
 	
+=======
+>>>>>>> f1ba42b4627a0af0e654ee3da474451fe39822cf
 	private Wallet wallet;
 	
 	@Transactional
@@ -44,6 +52,7 @@ public class WalletServiceImpl implements WalletService{
 
 	@Transactional
 	@Override
+<<<<<<< HEAD
 	public void addWallet(WalletModel wallet) {
 		System.out.println("Inside the Service add Wallet");
 		int user_id = wallet.getUser_id();
@@ -51,6 +60,11 @@ public class WalletServiceImpl implements WalletService{
 		Wallet walletNew = new Wallet(wallet.getWallet_amt());
 		walletNew.setUser(u);
 		walletDAO.addWallet(walletNew);
+=======
+	public void addWallet(Wallet wallet) {
+		System.out.println("Inside the Service add Wallet");
+		walletDAO.addWallet(wallet);
+>>>>>>> f1ba42b4627a0af0e654ee3da474451fe39822cf
 	}
 
 	@Transactional

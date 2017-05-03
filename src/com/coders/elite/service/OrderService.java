@@ -9,6 +9,8 @@ public interface OrderService {
 
 	public List <OrderModel> getOrders(int userid);
 	
+	public Orders getOrderById(int order_id);
+	
 	public void addOrder(Orders order);
 	
 	public void updateOrder(Orders order);

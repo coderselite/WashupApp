@@ -12,5 +12,5 @@ public interface BillingService {
 	public List<Billing> getBillByUser(int user_Id);
 	public void addBill(BillingModel bill);
 	public void updateBill(Billing bill);
-	public void deleteBill(Billing Bill);
+	public void deleteBill(int id);
 }

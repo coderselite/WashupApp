@@ -29,6 +29,12 @@ public class OrderController {
 	  return orderService.getOrders(userid);
 	 }
 	 
+	 @RequestMapping(value ="/getOrder/orderid/{orderid}", method = RequestMethod.GET, headers ="Accept=application/json")
+	 public Orders getOderById(@PathVariable int orderid){
+		 return orderService.getOrderById(orderid);
+	 }
+	 
+	 
   /* @RequestMapping(value = "/addOrder", method = RequestMethod.POST, headers = "Accept=application/json")
 	 public void addOrder(@RequestBody Orders order) { 
 		 System.out.println("Inside Order Controller");

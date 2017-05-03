@@ -142,4 +142,10 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.addOrder(orderNew);
 	}
 
+	@Override
+	public Orders getOrderById(int order_id) {
+		return orderDao.getOrderById(order_id);
+		
+	}
+
 }

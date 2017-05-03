@@ -51,4 +51,11 @@ public class OrderDAOImpl implements OrderDAO{
 		
 	}
 
+	@Override
+	public Orders getOrderById(int order_id) {
+		Session session = sessionFactory.getCurrentSession();
+		Orders order = (Orders)session.load(Orders.class, new Integer(order_id));
+		return order;
+	}
+
 }

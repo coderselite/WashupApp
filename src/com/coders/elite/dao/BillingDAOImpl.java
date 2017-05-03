@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.coders.elite.bean.Billing;
+import com.coders.elite.model.BillingModel;
 
 
 @Repository
@@ -40,10 +41,10 @@ public class BillingDAOImpl implements BillingDAO{
 	}
 
 	@Override
-	public Billing addBill(Billing bill) {
+	public void addBill(BillingModel bill) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(bill);
-		return bill;
+		
 	}
 
 	@Override
